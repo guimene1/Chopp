@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos</title>
+</head>
+<body>
+    <h1>Gerenciamento de Produtos</h1>
+    <form action="/produtos" method="POST" enctype="multipart/form-data">
+        <input type="text" name="nome" placeholder="Nome do Produto" required />
+        <input type="text" name="descricao" placeholder="Descrição" required />
+        <input type="text" name="tipo" placeholder="Tipo" required />
+        <input type="file" name="imagem" accept="image/*" required />
+        <button type="submit">Adicionar Produto</button>
+    </form>
+
+    <ul>
+        <% produtos.forEach(function(produto) { %>
+            <li>
+                <img src="<%= produto.imagemURL %>" alt="<%= produto.nome %>" width="100" />
+                <h2>Nome:<%= produto.nome %></h2>
+                <p>Descrição<%= produto.descricao %></p>
+                <p>Tipo:<%= produto.tipo %></p>
+                <form action="/produtos/<%= produto.id %>" method="POST">
+                    <input type="text" name="nome" value="<%= produto.nome %>" required />
+                    <input type="text" name="descricao" value="<%= produto.descricao %>" required />
+                    <input type="text" name="tipo" value="<%= produto.tipo %>" required />
+                    <button type="submit">Atualizar Produto</button>
+                </form>
+                <form action="/produtos/delete/<%= produto.id %>" method="POST">
+                    <button type="submit">Deletar Produto</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
